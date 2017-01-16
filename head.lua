@@ -63,7 +63,7 @@ function Head:draw(direction)
     -- Draw an ear on the head. Right-direction handled in the class
     love.graphics.push()
     if direction == "left" then
-        love.graphics.translate(self.x + (self.width * 0.7), self.y + (self.height * 0.5))
+        love.graphics.translate(self.x + (self.width * 0.7) - self.ear.width, self.y + (self.height * 0.5))
     else
         love.graphics.translate(self.x + (self.width * 0.3), self.y + (self.height * 0.5))
     end
@@ -188,7 +188,7 @@ Hair = Object:extend()
 
 function Hair:new(color,head_height,head_width)
     self.color      = color
-    self.height     = math.random(head_height,head_height*1.5)
+    self.height     = math.random(head_height*0.3,head_height*1.7)
     self.head_width = head_width
 end
 
@@ -200,7 +200,7 @@ function Hair:draw(direction)
     if direction == "left" then
         love.graphics.rectangle("fill",self.head_width-3,-3,9,self.height)
     else
-        love.graphics.rectangle("fill",0,-3,6,self.height)
+        love.graphics.rectangle("fill",0,-3,9,self.height)
     end
 end
 
