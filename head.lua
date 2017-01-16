@@ -1,9 +1,10 @@
 --! file: head.lua
 
-Head   = Shape:extend()
+Head   = Object:extend()
 
 function Head:new(x,y)
-    Head.super.new(self,x,y)
+    self.x       = x
+    self.y       = y
     self.width   = math.random(40,60)
     self.height  = math.random(40,80)
     self.color   = random_face_color()
