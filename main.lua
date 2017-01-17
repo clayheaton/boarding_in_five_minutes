@@ -2,21 +2,22 @@
 function love.load()
     math.randomseed(os.time())
     
+    -- require "example_code.shape"
+    -- require "example_code.rectangle"
+    -- require "example_code.circle"
+    
     -- Reference lookups
     require "colors"
 
     Object = require "classic"
-    require "shape"
-    require "rectangle"
-    require "circle"
-    require "head"
+    require "actors.head"
 
     heads = {}
 
-    for i=1,7 do
-        for j=1,7 do
-            local x = 50 + (i-1) * 160
-            local y = 50 + (j-1) * 140
+    for i=1,12 do
+        for j=1,12 do
+            local x = 50 + (i-1) * 100
+            local y = 50 + (j-1) * 120
             local head = Head(x,y)
             table.insert(heads,head)
         end
@@ -45,9 +46,6 @@ function love.draw()
     for i=1,#heads do
         local head = heads[i]
         head:draw("left")
-        head.x = head.x + head.width + 10
-        head:draw("right")
-        head.x = head.x - head.width - 10
     end
 end
 

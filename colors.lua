@@ -6,16 +6,16 @@ eye_colors.green   = {25,163,55}
 eye_colors.blue    = {52,152,219}
 eye_colors.brown   = {119,81,58}
 
-face_colors_lookup   = {"light","light2","light3","light4","medium","medium2","medium3","dark"}
-face_colors          = {}
-face_colors.light    = {241,194,125}
-face_colors.light2   = {248,223,178}
-face_colors.light3   = {235,199,161}
-face_colors.light4   = {208,155,105}
-face_colors.medium   = {154,124,90}
-face_colors.medium2  = {184,134,93}
-face_colors.medium3  = {163,111,68}
-face_colors.dark     = {119,81,58}
+skin_colors_lookup   = {"light","light2","light3","light4","medium","medium2","medium3","dark"}
+skin_colors          = {}
+skin_colors.light    = {241,194,125}
+skin_colors.light2   = {248,223,178}
+skin_colors.light3   = {235,199,161}
+skin_colors.light4   = {208,155,105}
+skin_colors.medium   = {154,124,90}
+skin_colors.medium2  = {184,134,93}
+skin_colors.medium3  = {163,111,68}
+skin_colors.dark     = {119,81,58}
 
 hair_colors_lookup = {"blonde",
                       "brown",
@@ -54,7 +54,7 @@ hair_colors.blonde                  = {232,205,158}
 hair_colors.brown                   = {111,69,49}
 hair_colors.black                   = {40,25,12}
 hair_colors.red                     = {153,60,28}
-hair_colors.grey                    = {153,154,163}
+hair_colors["grey"]                 = {153,154,163}
 hair_colors["off_black"]            = {44,34,43}
 hair_colors["darkest_brown"]        = {59,48,42}
 hair_colors["med_dark_brown"]       = {78,67,63}
@@ -88,10 +88,10 @@ function random_eye_color()
     return eye_colors[color]
 end
 
-function random_face_color()
-    local idx   = math.random(1,table.getn(face_colors_lookup))
-    local color = face_colors_lookup[idx]
-    return face_colors[color]
+function random_skin_color()
+    local idx   = math.random(1,table.getn(skin_colors_lookup))
+    local color = skin_colors_lookup[idx]
+    return skin_colors[color]
 end
 
 function random_hair_color()
