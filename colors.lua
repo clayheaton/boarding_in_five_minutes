@@ -99,3 +99,10 @@ function random_hair_color()
     local color = hair_colors_lookup[idx]
     return hair_colors[color]
 end
+
+function random_reasonable_color()
+    local r = math.random(80,200)
+    local g = math.random(80,200)
+    local b = math.random(80,200)
+    return {r,g,b}
+end

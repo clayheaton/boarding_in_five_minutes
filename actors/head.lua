@@ -10,9 +10,7 @@ require "actors.hair"
 
 Head   = Object:extend()
 
-function Head:new(x,y)
-    self.x       = x
-    self.y       = y
+function Head:new()
     self.width   = math.random(40,60)
     self.height  = math.random(40,80)
     self.color   = random_skin_color()
@@ -36,14 +34,14 @@ function Head:draw(direction)
 
     -- The actual head part
     love.graphics.setColor(self.color[1],self.color[2],self.color[3])
-    love.graphics.rectangle("fill",self.x, self.y, self.width, self.height)
+    love.graphics.rectangle("fill",0, 0, self.width, self.height)
 
     -- Draw an eye on the head
     love.graphics.push()
     if direction == "left" then
-        love.graphics.translate(self.x + (self.width * 0.22 - self.eye.width), self.y + (self.height * 0.3))
+        love.graphics.translate(self.width * 0.22 - self.eye.width, self.height * 0.3)
     else
-        love.graphics.translate(self.x + (self.width * 0.8),self.y + (self.height * 0.3))
+        love.graphics.translate(self.width * 0.8,self.height * 0.3)
     end
     self.eye:draw(direction)
     love.graphics.pop()
@@ -51,9 +49,9 @@ function Head:draw(direction)
     -- Draw a nose on the head
     love.graphics.push()
     if direction == "left" then
-        love.graphics.translate(self.x - self.nose.width + 1, self.y + (self.height * 0.5))
+        love.graphics.translate(-1 * self.nose.width + 1, self.height * 0.5)
     else
-        love.graphics.translate(self.x + self.width - 1, self.y + (self.height * 0.5))
+        love.graphics.translate(self.width - 1, self.height * 0.5)
     end
     self.nose:draw(direction)
     love.graphics.pop()
@@ -61,9 +59,9 @@ function Head:draw(direction)
     -- Draw an eyebrow on the head
     love.graphics.push()
     if direction == "left" then
-        love.graphics.translate(self.x + (self.width * 0.25 - self.eyebrow.width), self.y + (self.height * 0.20))
+        love.graphics.translate(self.width * 0.25 - self.eyebrow.width, self.height * 0.20)
     else
-        love.graphics.translate(self.x + (self.width * 0.75), self.y + (self.height * 0.20))
+        love.graphics.translate(self.width * 0.75, self.height * 0.20)
     end
     
     self.eyebrow:draw(direction)
@@ -72,9 +70,9 @@ function Head:draw(direction)
     -- Draw an ear on the head. Right-direction handled in the class
     love.graphics.push()
     if direction == "left" then
-        love.graphics.translate(self.x + (self.width * 0.7) - self.ear.width, self.y + (self.height * 0.5))
+        love.graphics.translate(self.width * 0.7 - self.ear.width, self.height * 0.5)
     else
-        love.graphics.translate(self.x + (self.width * 0.3), self.y + (self.height * 0.5))
+        love.graphics.translate(self.width * 0.3, self.height * 0.5)
     end
     self.ear:draw(direction)
     love.graphics.pop()
@@ -82,16 +80,16 @@ function Head:draw(direction)
     -- Draw the mouth. May change with mood.
     love.graphics.push()
     if direction == "left" then
-        love.graphics.translate(self.x + 1,self.y + (self.height * 0.5) + self.mouth_offset)
+        love.graphics.translate(1,self.height * 0.5 + self.mouth_offset)
     else
-        love.graphics.translate(self.x + (self.width - self.mouth.width - 1),self.y + (self.height * 0.5) + self.mouth_offset)
+        love.graphics.translate(self.width - self.mouth.width - 1,self.height * 0.5 + self.mouth_offset)
     end
     self.mouth:draw(direction)
     love.graphics.pop()
 
     -- Draw the hair
     love.graphics.push()
-    love.graphics.translate(self.x - 3,self.y)
+    love.graphics.translate(-3,0)
     self.hair:draw(direction)
     love.graphics.pop()
 
