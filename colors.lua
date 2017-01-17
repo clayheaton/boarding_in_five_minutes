@@ -101,8 +101,8 @@ function random_hair_color()
 end
 
 function random_reasonable_color()
-    local r = math.random(80,200)
-    local g = math.random(80,200)
-    local b = math.random(80,200)
+    local r = math.random(0,200)
+    local g = math.random(0,180)
+    local b = math.random(0,150)
     return {r,g,b}
 end
