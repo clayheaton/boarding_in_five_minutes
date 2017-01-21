@@ -28,7 +28,7 @@ function Person:draw(direction)
     -- temporary legs
     love.graphics.push()
     love.graphics.translate(self.x,self.y-self.legs.length)
-    self.legs:draw(direction,"standing")
+    self.legs:draw(direction,"sitting")
     love.graphics.pop()
 
     -- temporary torso

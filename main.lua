@@ -69,6 +69,6 @@ end
 function test_characterGridDraw()
     for i=1,#people do
         local person = people[i]
-        person:draw("right")
+        person:draw("left")
     end
 end
