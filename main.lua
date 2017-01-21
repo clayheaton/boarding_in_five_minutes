@@ -2,7 +2,7 @@
 function love.load()
     -- More info here: https://love2d.org/wiki/love.window.setMode
     -- TODO: Reconcile with the conf.lua settings
-    love.window.setMode(1280,1000,{msaa=1})
+    love.window.setMode(1280,1000,{msaa=4})
 
     math.randomseed(os.time())
     test_characterGrid = true
@@ -15,6 +15,7 @@ function love.load()
 
     Object = require "classic"
     require "actors.person"
+    require "oscillator"
 
 
     -- Tests
@@ -30,9 +31,12 @@ function love.load()
 end
 
 function love.update(dt)
-    -- r1:update(dt)
-    -- r2:update(dt)
-    -- c1:update(dt)
+    if test_characterGrid then
+        for i=1,#people do
+            local person = people[i]
+            person:update(dt)
+        end  
+    end
 end
 
 
