@@ -1,6 +1,7 @@
 --! file: head.lua
 require "actors.head"
 require "actors.legs"
+require "actors.torso"
 require "colors"
 
 Person = Object:extend()
@@ -16,7 +17,8 @@ function Person:new()
     self.legs         = Legs(self.torso_width, self.speed_variation)
     self.torso_length = self.legs.length * 1.2
 
-    self.color_torso = random_reasonable_color()
+    self.color_torso  = random_reasonable_color()
+    self.torso        = Torso(self.torso_width,self.torso_length,self.color_torso)
 
 end
 
@@ -31,9 +33,8 @@ function Person:draw(direction)
 
     -- temporary torso
     love.graphics.push()
-    love.graphics.setColor(self.color_torso[1],self.color_torso[2],self.color_torso[3])
     love.graphics.translate(self.x-self.torso_width/2,self.y-self.legs.length-self.torso_length,self.torso_width,self.torso_length)
-    love.graphics.rectangle("fill",0,0,self.torso_width,self.torso_length+5)
+    self.torso:draw()
     love.graphics.pop()
 
     -- Draw the head
