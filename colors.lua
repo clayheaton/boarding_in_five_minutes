@@ -106,3 +106,22 @@ function random_reasonable_color()
     local b = math.random(0,150)
     return {r,g,b}
 end
+
+function darker_shade(color,amt)
+  local r = math.max(0,color[1]-amt)
+  local g = math.max(0,color[2]-amt)
+  local b = math.max(0,color[2]-amt)
+  return {r,g,b}
+end
+
+function lighter_shade(color,amt)
+  local r = math.min(240,color[1]+amt)
+  local g = math.min(240,color[2]+amt)
+  local b = math.min(240,color[2]+amt)
+  return {r,g,b}
+end
+
+-- Convenience function for setting colors with a table
+function setColor(color)
+  love.graphics.setColor(color[1],color[2],color[3])
+end
