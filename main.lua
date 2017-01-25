@@ -1,4 +1,7 @@
 
+directions      = {"left","right"}
+animationStates = {"sitting","walking","standing"}
+
 function love.load()
     -- More info here: https://love2d.org/wiki/love.window.setMode
     -- TODO: Reconcile with the conf.lua settings
@@ -6,6 +9,7 @@ function love.load()
 
     math.randomseed(os.time())
     test_characterGrid = true
+
     -- require "example_code.shape"
     -- require "example_code.rectangle"
     -- require "example_code.circle"
@@ -51,6 +55,25 @@ end
 
 
 -- TESTS
+
+function love.keypressed( key, scancode, isrepeat )
+    if key == "space" then
+        if test_characterGrid then
+            for i=1,#people do
+                local person = people[i]
+
+                local ani_idx   = math.random(1,table.getn(animationStates))
+                local ani_state = animationStates[ani_idx]
+                person:setAnimationState(ani_state)
+
+                local dir_idx   = math.random(1,table.getn(directions))
+                local dir_state = directions[dir_idx]
+                person:setDirection(dir_state)
+            end  
+        end
+    end
+end
+
 function test_characterGridSetup()
     people = {}
 
@@ -69,6 +92,6 @@ end
 function test_characterGridDraw()
     for i=1,#people do
         local person = people[i]
-        person:draw("left")
+        person:draw()
     end
 end

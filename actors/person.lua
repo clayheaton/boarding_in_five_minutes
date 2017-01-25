@@ -12,23 +12,34 @@ function Person:new()
 
     self.speed_variation = math.random(40,130)/100
 
-    self.head         = Head()
-    self.torso_width  = math.random(self.head.width*0.6,self.head.width*1.5)
-    self.legs         = Legs(self.torso_width, self.speed_variation)
-    self.torso_length = self.legs.length * 1.2
+    self.head           = Head()
+    self.torso_width    = math.random(self.head.width*0.6,self.head.width*1.5)
+    self.legs           = Legs(self.torso_width, self.speed_variation)
+    self.torso_length   = self.legs.length * 1.2
 
-    self.color_torso  = random_reasonable_color()
-    self.torso        = Torso(self.torso_width,self.torso_length,self.color_torso)
+    self.color_torso    = random_reasonable_color()
+    self.torso          = Torso(self.torso_width,self.torso_length,self.color_torso)
+
+    self.animationState = "sitting"
+    self.direction      = "left"
 
 end
 
-function Person:draw(direction)
+function Person:setAnimationState(animationState)
+    self.animationState = animationState
+end
+
+function Person:setDirection(dir)
+    self.direction = dir
+end
+
+function Person:draw()
     -- Position is middle of feet
 
     -- temporary legs
     love.graphics.push()
     love.graphics.translate(self.x,self.y-self.legs.length)
-    self.legs:draw(direction,"sitting")
+    self.legs:draw(self.direction,self.animationState)
     love.graphics.pop()
 
     -- temporary torso
@@ -40,7 +51,7 @@ function Person:draw(direction)
     -- Draw the head
     love.graphics.push()
     love.graphics.translate(self.x-self.head.width/2,self.y-self.legs.length-self.torso_length-self.head.height)
-    self.head:draw(direction)
+    self.head:draw(self.direction)
     love.graphics.pop()
 
 end
