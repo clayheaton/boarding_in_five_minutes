@@ -2,6 +2,7 @@
 require "actors.head"
 require "actors.legs"
 require "actors.torso"
+require "actors.arms"
 require "colors"
 
 Person = Object:extend()
@@ -22,6 +23,10 @@ function Person:new()
 
     self.animationState = "sitting"
     self.direction      = "left"
+
+    self.holding_ticket   = false
+    self.holding_suitcase = false
+    self.arms             = Arms(self.color_torso,self.head.color)
 
 end
 
