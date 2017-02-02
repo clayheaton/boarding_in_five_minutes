@@ -15,18 +15,69 @@ end
 function Arm:draw(direction,animationState,holding_ticket,holding_suitcase)
     setColor(self.color)
 
+    -- Person is seated
     if animationState == "sitting" then
         -- draw sitting
         if self.arm_side == "RightArm" then
             love.graphics.rectangle("fill",-self.torso_width/2 - self.width - 2,0,self.width,self.length)
             love.graphics.rectangle("fill",-self.torso_width/2 - self.width/2,0,self.width,20)
+            self:drawHand(direction,animationState,holding_ticket,holding_suitcase)
         else
             love.graphics.rectangle("fill", self.torso_width/2 + 2,0,self.width,self.length)
             love.graphics.rectangle("fill", self.torso_width/2 - self.width/2,0,self.width,20)
+            self:drawHand(direction,animationState,holding_ticket,holding_suitcase)
         end
-        self:drawHand(direction,animationState,holding_ticket,holding_suitcase)
         return
+
+
+    else 
+        -- Standing or walking
+        if self.arm_side == "RightArm" then
+            if holding_ticket == true then
+                -- Arm should be angled out and bend upwards holding ticket
+
+            elseif holding_suitcase == true then
+                -- Arm angled out dragging or holding suitcase
+
+            else
+                -- Arm at side
+                if direction == "left" then
+                    -- Don't need to draw the left arm if the person is facing right and not holding anything
+                    return
+                else
+                    love.graphics.rectangle("fill",-self.width/2,1,self.width,self.length)
+                    self:drawHand(direction,animationState,holding_ticket,holding_suitcase)
+                    setColor(lighter_shade(self.color,30))
+                    love.graphics.setLineWidth(0.5)
+                    love.graphics.rectangle("line",-self.width/2,1,self.width,self.length)
+                end
+            end
+
+
+        else
+            if holding_ticket == true then
+                -- Arm should be angled out and bend upwards holding ticket
+
+            elseif holding_suitcase == true then
+                -- Arm angled out dragging or holding suitcase
+
+            else
+                -- Arm at side
+                if direction == "right" then
+                    -- Don't need to draw the right arm if the person is facing left and not holding anything
+                    return
+                else
+                    love.graphics.rectangle("fill",-self.width/2,1,self.width,self.length)
+                    self:drawHand(direction,animationState,holding_ticket,holding_suitcase)
+                    setColor(lighter_shade(self.color,30))
+                    love.graphics.setLineWidth(0.5)
+                    love.graphics.rectangle("line",-self.width/2,1,self.width,self.length)
+                end
+            end
+        end
     end
+    
+    -- Person is standing or walking
 end
 
 function Arm:drawHand(direction,animationState,holding_ticket,holding_suitcase)
@@ -39,6 +90,43 @@ function Arm:drawHand(direction,animationState,holding_ticket,holding_suitcase)
             love.graphics.rectangle("fill", self.torso_width/2 + 4,self.length,self.width - 4,self.length*0.15)
         end
         return
+    else
+        -- Standing or walking
+        if self.arm_side == "RightArm" then
+            if holding_ticket == true then
+                -- Arm should be angled out and bend upwards holding ticket
+
+            elseif holding_suitcase == true then
+                -- Arm angled out dragging or holding suitcase
+
+            else
+                -- Arm at side
+                if direction == "left" then
+                    -- Don't need to draw the left hand if the person is facing right and not holding anything
+                    return
+                else
+                    love.graphics.rectangle("fill", -self.width/2 + 2,self.length,self.width - 4,self.length*0.15)
+                end
+            end
+
+
+        else
+            if holding_ticket == true then
+                -- Arm should be angled out and bend upwards holding ticket
+
+            elseif holding_suitcase == true then
+                -- Arm angled out dragging or holding suitcase
+
+            else
+                -- Arm at side
+                if direction == "right" then
+                    -- Don't need to draw the right hand if the person is facing left and not holding anything
+                    return
+                else
+                    love.graphics.rectangle("fill", -self.width/2 + 2,self.length,self.width - 4,self.length*0.15)
+                end
+            end
+        end
     end
 end
 
