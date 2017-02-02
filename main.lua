@@ -77,9 +77,9 @@ end
 function test_characterGridSetup()
     people = {}
 
-    for i=1,12 do
+    for i=1,3 do
         for j=1,3 do
-            local x = 50 + (i-1) * 100
+            local x = 300 + (i-1) * 300
             local y = 300 + (j-1) * 300
             local person = Person()
             person.x = x
