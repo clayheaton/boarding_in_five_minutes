@@ -31,9 +31,9 @@ function Person:new()
     self.animationState = "standing"
     self.direction      = "left"
 
-    self.holding_ticket   = false
+    self.holding_ticket   = true
     self.holding_suitcase = false
-    self.arms             = Arms(self.color_torso,self.head.color,self.right_handedself,self.torso_width,self.torso_length)
+    self.arms             = Arms(self.color_torso,self.head.color,self.right_handed,self.torso_width,self.torso_length)
 
 end
 
