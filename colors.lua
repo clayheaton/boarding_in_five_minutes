@@ -17,6 +17,8 @@ skin_colors.medium2  = {184,134,93}
 skin_colors.medium3  = {163,111,68}
 skin_colors.dark     = {119,81,58}
 
+ticket_color         = {255,231,157}
+
 hair_colors_lookup = {"blonde",
                       "brown",
                       "black",

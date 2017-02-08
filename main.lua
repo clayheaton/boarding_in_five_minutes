@@ -7,7 +7,7 @@ function love.load()
     -- TODO: Reconcile with the conf.lua settings
     love.window.setMode(1280,1000,{msaa=4})
 
-    math.randomseed(os.time())
+    --math.randomseed(os.time())
     test_characterGrid = true
 
     -- require "example_code.shape"

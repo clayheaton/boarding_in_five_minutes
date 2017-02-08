@@ -174,9 +174,22 @@ function Arm:drawHand(direction,animationState,holding_ticket,holding_suitcase)
         -- Standing or walking
         if self.arm_side == "RightArm" then
             if holding_ticket == true then
-                -- Arm should be angled out and bend upwards holding ticket
-                love.graphics.rectangle("fill",-self.width/2 + 2,self.length,self.width-4,self.length*0.15)
                 -- DRAW THE TICKET
+                local xa = -10
+                local xb = 40
+                if direction == "left" then
+                    xa = -30
+                    xb = 40
+                end
+                setColor(ticket_color)
+                love.graphics.rectangle("fill",xa, self.length+3,xb,18)
+                love.graphics.setLineWidth(0.5)
+                setColor(darker_shade(ticket_color,50))
+                love.graphics.rectangle("line",xa, self.length+3,xb,18)
+
+                setColor(self.hand_color)
+                -- Arm should be angled out to hold a ticket
+                love.graphics.rectangle("fill",-self.width/2 + 2,self.length,self.width-4,self.length*0.15)
 
             elseif holding_suitcase == true then
                 -- Arm angled out dragging or holding suitcase
@@ -195,9 +208,22 @@ function Arm:drawHand(direction,animationState,holding_ticket,holding_suitcase)
 
         else
             if holding_ticket == true then
+                -- DRAW THE TICKET
+                local xa = -10
+                local xb = 40
+                if direction == "left" then
+                    xa = -30
+                    xb = 40
+                end
+                setColor(ticket_color)
+                love.graphics.rectangle("fill",xa, self.length+3,xb,18)
+                love.graphics.setLineWidth(0.5)
+                setColor(darker_shade(ticket_color,50))
+                love.graphics.rectangle("line",xa, self.length+3,xb,18)
+
+                setColor(self.hand_color)
                 -- left hand holding ticket
                 love.graphics.rectangle("fill",-self.width/2 + 2,self.length,self.width-4,self.length*0.15)
-                -- DRAW TICKET
 
             elseif holding_suitcase == true then
                 -- Arm angled out dragging or holding suitcase
