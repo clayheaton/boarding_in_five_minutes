@@ -48,13 +48,17 @@ end
 
 function Person:draw()
     -- Position is middle of feet
+    -- TODO: If the person is "sitting" then we need to draw both arms first
+
 
     -- Need to draw one arm before anything else and one arm after everything else
     -- push the matrix to the center point of the top of the torso.
-    love.graphics.push()
-    love.graphics.translate(self.x,self.y-self.legs.length-self.torso_length)
-    self.arms:drawFirst(self.direction,self.animationState,self.holding_ticket,self.holding_suitcase)
-    love.graphics.pop()
+    if self.animationState ~= "sitting" then
+        love.graphics.push()
+        love.graphics.translate(self.x,self.y-self.legs.length-self.torso_length)
+        self.arms:drawFirst(self.direction,self.animationState,self.holding_ticket,self.holding_suitcase)
+        love.graphics.pop()
+    end
 
     -- legs
     love.graphics.push()
@@ -76,10 +80,25 @@ function Person:draw()
 
     -- Need to draw one arm before anything else and one arm after everything else
     -- push the matrix to the center point of the top of the torso.
-    love.graphics.push()
-    love.graphics.translate(self.x,self.y-self.legs.length-self.torso_length)
-    self.arms:drawLast(self.direction,self.animationState,self.holding_ticket,self.holding_suitcase)
-    love.graphics.pop()
+    if self.animationState ~= "sitting" then
+        love.graphics.push()
+        love.graphics.translate(self.x,self.y-self.legs.length-self.torso_length)
+        self.arms:drawLast(self.direction,self.animationState,self.holding_ticket,self.holding_suitcase)
+        love.graphics.pop()
+    end
+
+    -- Draw the arms last if sitting.
+    if self.animationState == "sitting" then
+        love.graphics.push()
+        love.graphics.translate(self.x,self.y-self.legs.length-self.torso_length)
+        self.arms:drawFirst(self.direction,self.animationState,self.holding_ticket,self.holding_suitcase)
+        love.graphics.pop()
+
+        love.graphics.push()
+        love.graphics.translate(self.x,self.y-self.legs.length-self.torso_length)
+        self.arms:drawLast(self.direction,self.animationState,self.holding_ticket,self.holding_suitcase)
+        love.graphics.pop()
+    end
 
 end
 

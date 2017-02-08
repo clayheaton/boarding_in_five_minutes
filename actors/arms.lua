@@ -166,9 +166,41 @@ function Arm:drawHand(direction,animationState,holding_ticket,holding_suitcase)
     if animationState == "sitting" then
         -- draw sitting
         if self.arm_side == "RightArm" then
-            love.graphics.rectangle("fill",-self.torso_width/2 - self.width,self.length,self.width-4,self.length*0.15)
+            if holding_ticket == true then
+                -- DRAW THE TICKET
+                local xa = -self.torso_width/2 - self.width - 20
+                local xb = 40
+                setColor(ticket_color)
+                love.graphics.rectangle("fill",xa, self.length+3,xb,18)
+                love.graphics.setLineWidth(0.5)
+                setColor(darker_shade(ticket_color,50))
+                love.graphics.rectangle("line",xa, self.length+3,xb,18)
+
+                setColor(self.hand_color)
+                love.graphics.rectangle("fill",-self.torso_width/2 - self.width,self.length,self.width-4,self.length*0.15)
+            elseif holding_suitcase == true then
+                love.graphics.rectangle("fill",-self.torso_width/2 - self.width,self.length,self.width-4,self.length*0.15)
+            else
+                love.graphics.rectangle("fill",-self.torso_width/2 - self.width,self.length,self.width-4,self.length*0.15)
+            end
         else
-            love.graphics.rectangle("fill", self.torso_width/2 + 4,self.length,self.width - 4,self.length*0.15)
+            if holding_ticket == true then
+                -- DRAW THE TICKET
+                local xa = self.torso_width/2 + self.width - 20
+                local xb = 40
+                setColor(ticket_color)
+                love.graphics.rectangle("fill",xa, self.length+3,xb,18)
+                love.graphics.setLineWidth(0.5)
+                setColor(darker_shade(ticket_color,50))
+                love.graphics.rectangle("line",xa, self.length+3,xb,18)
+
+                setColor(self.hand_color)
+                love.graphics.rectangle("fill", self.torso_width/2 + 4,self.length,self.width - 4,self.length*0.15)
+            elseif holding_suitcase == true then
+                love.graphics.rectangle("fill", self.torso_width/2 + 4,self.length,self.width - 4,self.length*0.15)
+            else
+                love.graphics.rectangle("fill", self.torso_width/2 + 4,self.length,self.width - 4,self.length*0.15)
+            end
         end
         return
     else
