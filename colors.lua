@@ -19,6 +19,14 @@ skin_colors.dark     = {119,81,58}
 
 ticket_color         = {255,231,157}
 
+suitcase_colors_lookup = {"black","brown","red","blue","green"}
+suitcase_colors        = {}
+suitcase_colors.black  = {50,53,60}
+suitcase_colors.brown  = {124,80,43}
+suitcase_colors.red    = {169,63,45}
+suitcase_colors.blue   = {66,78,122}
+suitcase_colors.green  = {87,133,96} 
+
 hair_colors_lookup = {"blonde",
                       "brown",
                       "black",
@@ -100,6 +108,12 @@ function random_hair_color()
     local idx   = math.random(1,table.getn(hair_colors_lookup))
     local color = hair_colors_lookup[idx]
     return hair_colors[color]
+end
+
+function random_suitcase_color()
+    local idx   = math.random(1,table.getn(suitcase_colors_lookup))
+    local color = suitcase_colors_lookup[idx]
+    return suitcase_colors[color]
 end
 
 function random_reasonable_color()
