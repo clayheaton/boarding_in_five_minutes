@@ -20,6 +20,14 @@ function Person:new()
         self.right_handed = false
     end
 
+    self.suitcase_type  = "briefcase"
+    local suitcase_type_check = math.random(1,100)
+    if suitcase_type_check > 66 then
+        self.suitcase_type = "rollerboard"
+    elseif suitcase_type_check > 33 then
+        self.suitcase_type = "duffelbag"
+    end
+
     self.head           = Head()
     self.torso_width    = math.random(self.head.width*0.6,self.head.width*1.5)
     self.legs           = Legs(self.torso_width, self.speed_variation)
@@ -34,7 +42,7 @@ function Person:new()
     self.holding_ticket   = true
     self.holding_suitcase = false
     self.suitcase_color   = random_suitcase_color()
-    self.arms             = Arms(self.color_torso,self.head.color,self.suitcase_color,self.right_handed,self.torso_width,self.torso_length)
+    self.arms             = Arms(self.color_torso,self.head.color,self.suitcase_color,self.right_handed,self.torso_width,self.torso_length,self.suitcase_type)
 
 end
 
@@ -72,12 +80,6 @@ function Person:draw()
     self.torso:draw()
     love.graphics.pop()
 
-    -- Draw the head
-    love.graphics.push()
-    love.graphics.translate(self.x-self.head.width/2,self.y-self.legs.length-self.torso_length-self.head.height)
-    self.head:draw(self.direction)
-    love.graphics.pop()
-
     -- Need to draw one arm before anything else and one arm after everything else
     -- push the matrix to the center point of the top of the torso.
     if self.animationState ~= "sitting" then
@@ -87,7 +89,7 @@ function Person:draw()
         love.graphics.pop()
     end
 
-    -- Draw the arms last if sitting.
+    -- Draw the arms on top of the torso if sitting
     if self.animationState == "sitting" then
         love.graphics.push()
         love.graphics.translate(self.x,self.y-self.legs.length-self.torso_length)
@@ -99,6 +101,12 @@ function Person:draw()
         self.arms:drawLast(self.direction,self.animationState,self.holding_ticket,self.holding_suitcase)
         love.graphics.pop()
     end
+
+    -- Draw the head
+    love.graphics.push()
+    love.graphics.translate(self.x-self.head.width/2,self.y-self.legs.length-self.torso_length-self.head.height)
+    self.head:draw(self.direction)
+    love.graphics.pop()
 
 end
 

@@ -3,7 +3,7 @@ require "colors"
 
 Arm = Object:extend()
 
-function Arm:new(width,length,torso_color,skin_color,arm_side,torso_width,suitcase_color)
+function Arm:new(width,length,torso_color,skin_color,arm_side,torso_width,suitcase_color,suitcase_type)
     self.width      = width
     self.length     = length
     self.color      = torso_color
@@ -11,6 +11,7 @@ function Arm:new(width,length,torso_color,skin_color,arm_side,torso_width,suitca
     self.arm_side   = arm_side
     self.torso_width = torso_width
     self.suitcase_color = suitcase_color
+    self.suitcase_type  = suitcase_type
 end
 
 function Arm:draw(direction,animationState,holding_ticket,holding_suitcase)
@@ -278,7 +279,7 @@ end
 
 Arms = Object:extend()
 
-function Arms:new(torso_color,skin_color,suitcase_color,right_handed,torso_width,torso_length)
+function Arms:new(torso_color,skin_color,suitcase_color,right_handed,torso_width,torso_length,suitcase_type)
     self.length     = torso_length * 0.9
     self.width      = math.random(10,20)
 
@@ -287,9 +288,10 @@ function Arms:new(torso_color,skin_color,suitcase_color,right_handed,torso_width
     self.torso_length = torso_length
 
     self.suitcase_color = suitcase_color
+    self.suitcase_type  = suitcase_type
 
-    self.armL       = Arm(self.width,self.length,torso_color,skin_color, "LeftArm",torso_width,suitcase_color)
-    self.armR       = Arm(self.width,self.length,torso_color,skin_color, "RightArm",torso_width,suitcase_color)
+    self.armL       = Arm(self.width,self.length,torso_color,skin_color, "LeftArm",torso_width,suitcase_color,suitcase_type)
+    self.armR       = Arm(self.width,self.length,torso_color,skin_color, "RightArm",torso_width,suitcase_color,suitcase_type)
 
     self.holding_ticket   = false
     self.holding_suitcase = false
