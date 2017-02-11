@@ -126,14 +126,14 @@ end
 function darker_shade(color,amt)
   local r = math.max(0,color[1]-amt)
   local g = math.max(0,color[2]-amt)
-  local b = math.max(0,color[2]-amt)
+  local b = math.max(0,color[3]-amt)
   return {r,g,b}
 end
 
 function lighter_shade(color,amt)
   local r = math.min(240,color[1]+amt)
   local g = math.min(240,color[2]+amt)
-  local b = math.min(240,color[2]+amt)
+  local b = math.min(240,color[3]+amt)
   return {r,g,b}
 end
 
