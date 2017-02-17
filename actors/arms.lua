@@ -177,13 +177,16 @@ function Arm:drawHand(direction,animationState,holding_ticket,holding_suitcase)
                 setColor(darker_shade(ticket_color,50))
                 love.graphics.rectangle("line",xa, self.length+3,xb,18)
 
-                setColor(self.hand_color)
-                love.graphics.rectangle("fill",-self.torso_width/2 - self.width,self.length,self.width-4,self.length*0.15)
+                
             elseif holding_suitcase == true then
-                love.graphics.rectangle("fill",-self.torso_width/2 - self.width,self.length,self.width-4,self.length*0.15)
+                -- DRAW THE SUITCASE
+                -- Sitting, Right Arm
+                --love.graphics.rectangle("fill",-self.torso_width/2 - self.width,self.length,self.width-4,self.length*0.15)
             else
-                love.graphics.rectangle("fill",-self.torso_width/2 - self.width,self.length,self.width-4,self.length*0.15)
+                --love.graphics.rectangle("fill",-self.torso_width/2 - self.width,self.length,self.width-4,self.length*0.15)
             end
+            setColor(self.hand_color)
+            love.graphics.rectangle("fill",-self.torso_width/2 - self.width,self.length,self.width-4,self.length*0.15)
         else
             if holding_ticket == true then
                 -- DRAW THE TICKET
@@ -195,13 +198,16 @@ function Arm:drawHand(direction,animationState,holding_ticket,holding_suitcase)
                 setColor(darker_shade(ticket_color,50))
                 love.graphics.rectangle("line",xa, self.length+3,xb,18)
 
-                setColor(self.hand_color)
-                love.graphics.rectangle("fill", self.torso_width/2 + 4,self.length,self.width - 4,self.length*0.15)
+                
             elseif holding_suitcase == true then
-                love.graphics.rectangle("fill", self.torso_width/2 + 4,self.length,self.width - 4,self.length*0.15)
+                -- DRAW THE SUITCASE
+                -- Sitting, Left Arm
+                --love.graphics.rectangle("fill", self.torso_width/2 + 4,self.length,self.width - 4,self.length*0.15)
             else
-                love.graphics.rectangle("fill", self.torso_width/2 + 4,self.length,self.width - 4,self.length*0.15)
+                --love.graphics.rectangle("fill", self.torso_width/2 + 4,self.length,self.width - 4,self.length*0.15)
             end
+            setColor(self.hand_color)
+            love.graphics.rectangle("fill", self.torso_width/2 + 4,self.length,self.width - 4,self.length*0.15)
         end
         return
     else
@@ -221,26 +227,58 @@ function Arm:drawHand(direction,animationState,holding_ticket,holding_suitcase)
                 setColor(darker_shade(ticket_color,50))
                 love.graphics.rectangle("line",xa, self.length+3,xb,18)
 
-                setColor(self.hand_color)
+                
                 -- Arm should be angled out to hold a ticket
+                setColor(self.hand_color)
                 love.graphics.rectangle("fill",-self.width/2 + 2,self.length,self.width-4,self.length*0.15)
 
             elseif holding_suitcase == true then
-                -- Arm angled out dragging or holding suitcase
-                love.graphics.rectangle("fill",-self.width/2 + 2,self.length,self.width-4,self.length*0.15)
                 -- DRAW THE SUITCASE
+                -- Standing, Right arm
+                -- TODO: START HERE
+                if self.suitcase_type == "rollerboard" then
+                    setColor(self.suitcase_color)
+                    love.graphics.rectangle("fill",-self.width,self.length*1.1,self.width*2,8)
+                    setColor({0,0,0})
+                    love.graphics.rectangle("fill",-2,self.length*1.1 + 8,4,15)
+                    setColor(self.suitcase_color)
+                    love.graphics.rectangle("fill",-self.width*0.8,self.length*1.1 + 23,self.width*1.6,self.length*0.8)
+                    setColor({0,0,0})
+                    if direction == "left" then
+                        -- Rollerboard wheel
+                        love.graphics.circle("fill",-self.width*0.8,self.length*1.1 + 23 + self.length*0.8,8)
+                    else
+                        love.graphics.circle("fill",self.width*0.8,self.length*1.1 + 23 + self.length*0.8,8)
+                    end
+                elseif self.suitcase_type == "duffelbag" then
+                    -- bag
+                    setColor(self.suitcase_color)
+                    love.graphics.circle("fill",0,self.length*1.6,self.length*0.4)
+                    -- handle
+                    setColor({0,0,0})
+                    love.graphics.rectangle("fill",-self.width,self.length*1.1,self.width*2,5)
+                    love.graphics.rectangle("fill",-self.width,self.length*1.1 + 5,5,self.length*0.5)
+                    love.graphics.rectangle("fill",self.width-5,self.length*1.1 + 5,5,self.length*0.5)
+                elseif self.suitcase_type == "briefcase" then
+
+                end
+                -- Arm angled out dragging or holding suitcase
+                setColor(self.hand_color)
+                love.graphics.rectangle("fill",-self.width/2 + 2,self.length,self.width-4,self.length*0.15)
+
             else
                 -- Arm at side
                 if direction == "left" then
                     -- Don't need to draw the left hand if the person is facing right and not holding anything
                     return
                 else
+                    setColor(self.hand_color)
                     love.graphics.rectangle("fill", -self.width/2 + 2,self.length,self.width - 4,self.length*0.15)
                 end
             end
 
 
-        else
+        else -- LEFT ARM
             if holding_ticket == true then
                 -- DRAW THE TICKET
                 local xa = -10
