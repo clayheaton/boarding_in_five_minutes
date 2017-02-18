@@ -63,7 +63,9 @@ function Arm:draw(direction,animationState,holding_ticket,holding_suitcase)
                 if direction == "right" then
                     -- right arm, headed right, holding suitcase
                     love.graphics.push()
-                    love.graphics.rotate(math.pi/6)
+                    if self.suitcase_type == "rollerboard" then
+                        love.graphics.rotate(math.pi/6)
+                    end
                     love.graphics.rectangle("fill",-self.width/2,1,self.width,self.length)
                     self:drawHand(direction,animationState,holding_ticket,holding_suitcase)
                     setColor(lighter_shade(self.color,30))
@@ -73,7 +75,9 @@ function Arm:draw(direction,animationState,holding_ticket,holding_suitcase)
                 else
                     -- right arm, headed left, holding suitcase
                     love.graphics.push()
-                    love.graphics.rotate(-math.pi/6)
+                    if self.suitcase_type == "rollerboard" then
+                        love.graphics.rotate(-math.pi/6)
+                    end
                     love.graphics.rectangle("fill",-self.width/2,1,self.width,self.length)
                     self:drawHand(direction,animationState,holding_ticket,holding_suitcase)
                     setColor(lighter_shade(self.color,30))
@@ -126,7 +130,9 @@ function Arm:draw(direction,animationState,holding_ticket,holding_suitcase)
                 if direction == "right" then
                     -- left arm holding suitcase facing right
                     love.graphics.push()
-                    love.graphics.rotate(math.pi/-6)
+                    if self.suitcase_type == "rollerboard" then
+                        love.graphics.rotate(math.pi/-6)
+                    end
                     love.graphics.rectangle("fill",-self.width/2,1,self.width,self.length)
                     self:drawHand(direction,animationState,holding_ticket,holding_suitcase)
                     setColor(lighter_shade(self.color,30))
@@ -135,7 +141,9 @@ function Arm:draw(direction,animationState,holding_ticket,holding_suitcase)
                     love.graphics.pop()
                 else
                     love.graphics.push()
-                    love.graphics.rotate(math.pi/6)
+                    if self.suitcase_type == "rollerboard" then
+                        love.graphics.rotate(math.pi/6)
+                    end
                     love.graphics.rectangle("fill",-self.width/2,1,self.width,self.length)
                     self:drawHand(direction,animationState,holding_ticket,holding_suitcase)
                     setColor(lighter_shade(self.color,30))
@@ -243,6 +251,9 @@ function Arm:drawHand(direction,animationState,holding_ticket,holding_suitcase)
                     love.graphics.rectangle("fill",-2,self.length*1.1 + 8,4,15)
                     setColor(self.suitcase_color)
                     love.graphics.rectangle("fill",-self.width*0.8,self.length*1.1 + 23,self.width*1.6,self.length*0.8)
+                    setColor(darker_shade(self.suitcase_color,75))
+                    love.graphics.setLineWidth(1)
+                    love.graphics.rectangle("line",-self.width*0.8,self.length*1.1 + 23,self.width*1.6,self.length*0.8)
                     setColor({0,0,0})
                     if direction == "left" then
                         -- Rollerboard wheel
@@ -253,12 +264,15 @@ function Arm:drawHand(direction,animationState,holding_ticket,holding_suitcase)
                 elseif self.suitcase_type == "duffelbag" then
                     -- bag
                     setColor(self.suitcase_color)
-                    love.graphics.circle("fill",0,self.length*1.6,self.length*0.4)
+                    love.graphics.rectangle("fill",-self.width*3,self.length*1.1+10,self.width*6,self.length*0.5 - 5)
+                    setColor(darker_shade(self.suitcase_color,75))
+                    love.graphics.setLineWidth(1)
+                    love.graphics.rectangle("line",-self.width*3,self.length*1.1+10,self.width*6,self.length*0.5 - 5)
                     -- handle
                     setColor({0,0,0})
-                    love.graphics.rectangle("fill",-self.width,self.length*1.1,self.width*2,5)
-                    love.graphics.rectangle("fill",-self.width,self.length*1.1 + 5,5,self.length*0.5)
-                    love.graphics.rectangle("fill",self.width-5,self.length*1.1 + 5,5,self.length*0.5)
+                    love.graphics.rectangle("fill",-self.width*1.5,self.length*1.1,self.width*3,5)
+                    love.graphics.rectangle("fill",-self.width*1.5,self.length*1.1 + 5,5,self.length*0.5)
+                    love.graphics.rectangle("fill",self.width*1.5 -5,self.length*1.1 + 5,5,self.length*0.5)
                 elseif self.suitcase_type == "briefcase" then
 
                 end
