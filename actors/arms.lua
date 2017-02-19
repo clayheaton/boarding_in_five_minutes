@@ -349,10 +349,22 @@ function Arm:drawHand(direction,animationState,holding_ticket,holding_suitcase)
                     if direction == "left" then
                         -- This is drawn before the torso, so the straps need to be drawn with the other arm
                         setColor(self.suitcase_color)
-                        love.graphics.rectangle("fill",self.torso_width/2,0,30,self.length*0.7)
+                        love.graphics.polygon("fill",self.torso_width/2,0,
+                                                     self.torso_width/2 + 15,self.length*0.2,
+                                                     self.torso_width/2 + 25,self.length*0.4,
+                                                     self.torso_width/2 + 30,self.length*0.7,
+                                                     self.torso_width/2,self.length*0.72,
+                                                     self.torso_width/2,0)
                     elseif direction == "right" then
                         setColor(self.suitcase_color)
-                        love.graphics.rectangle("fill",-self.torso_width/2 - 30,0,30,self.length*0.7)
+                        --love.graphics.rectangle("fill",-self.torso_width/2 - 30,0,30,self.length*0.7)
+
+                        love.graphics.polygon("fill",-self.torso_width/2,0,
+                                                     -self.torso_width/2 - 15,self.length*0.2,
+                                                     -self.torso_width/2 - 25,self.length*0.4,
+                                                     -self.torso_width/2 - 30,self.length*0.7,
+                                                     -self.torso_width/2,self.length*0.72,
+                                                     -self.torso_width/2,0)
                     end
 
                 end
@@ -426,10 +438,21 @@ function Arm:drawHand(direction,animationState,holding_ticket,holding_suitcase)
                     if direction == "left" then
                         -- This is drawn before the torso, so the straps need to be drawn with the other arm
                         setColor(self.suitcase_color)
-                        love.graphics.rectangle("fill",self.torso_width/2,0,30,self.length*0.7)
+                        love.graphics.polygon("fill",self.torso_width/2,0,
+                                                     self.torso_width/2 + 15,self.length*0.2,
+                                                     self.torso_width/2 + 25,self.length*0.4,
+                                                     self.torso_width/2 + 30,self.length*0.7,
+                                                     self.torso_width/2,self.length*0.72,
+                                                     self.torso_width/2,0)
                     elseif direction == "right" then
                         setColor(self.suitcase_color)
-                        love.graphics.rectangle("fill",-self.torso_width/2 - 30,0,30,self.length*0.7)
+                        --love.graphics.rectangle("fill",-self.torso_width/2 - 30,0,30,self.length*0.7)
+                        love.graphics.polygon("fill",-self.torso_width/2,0,
+                                                     -self.torso_width/2 - 15,self.length*0.2,
+                                                     -self.torso_width/2 - 25,self.length*0.4,
+                                                     -self.torso_width/2 - 30,self.length*0.7,
+                                                     -self.torso_width/2,self.length*0.72,
+                                                     -self.torso_width/2,0)
                     end
 
                 end
