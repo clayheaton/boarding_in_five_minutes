@@ -20,13 +20,15 @@ function Person:new()
         self.right_handed = false
     end
 
-    self.suitcase_type  = "briefcase"
+    self.suitcase_type  = "backpack"
     local suitcase_type_check = math.random(1,100)
     if suitcase_type_check > 66 then
         self.suitcase_type = "rollerboard"
     elseif suitcase_type_check > 33 then
         self.suitcase_type = "duffelbag"
     end
+
+    --self.suitcase_type = "backpack"
 
     self.head           = Head()
     self.torso_width    = math.random(self.head.width*0.6,self.head.width*1.5)
