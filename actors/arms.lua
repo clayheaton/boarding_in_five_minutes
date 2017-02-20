@@ -24,18 +24,103 @@ function Arm:draw(direction,animationState,holding_ticket,holding_suitcase,draw_
             love.graphics.rectangle("fill",-self.torso_width/2 - self.width - 2,0,self.width,self.length)
             love.graphics.rectangle("fill",-self.torso_width/2 - self.width/2,0,self.width,20)
             self:drawHand(direction,animationState,holding_ticket,holding_suitcase)
+            if self.suitcase_type == "backpack" then
+                setColor(self.suitcase_color)
+                love.graphics.rectangle("fill",-self.torso_width/2 - 2,-2,6,self.length*0.6)
+            end
+
+            if self.suitcase_type == "rollerboard" and holding_suitcase == true then
+                love.graphics.push()
+                love.graphics.translate(-self.torso_width,-15)
+                setColor(self.suitcase_color)
+                love.graphics.rectangle("fill",-self.width,self.length*1.1,self.width*2,8)
+                setColor({0,0,0})
+                love.graphics.rectangle("fill",-2,self.length*1.1 + 8,4,15)
+                setColor(self.suitcase_color)
+                love.graphics.rectangle("fill",-self.width*0.8,self.length*1.1 + 23,self.width*1.6,self.length*0.8)
+                setColor(darker_shade(self.suitcase_color,75))
+                love.graphics.setLineWidth(1)
+                love.graphics.rectangle("line",-self.width*0.8,self.length*1.1 + 23,self.width*1.6,self.length*0.8)
+                setColor({0,0,0})
+                -- Rollerboard wheel
+                love.graphics.circle("fill",-self.width*0.8,self.length*1.1 + 23 + self.length*0.8,8) 
+                love.graphics.pop()
+            end
+
+            if self.suitcase_type == "duffelbag" and holding_suitcase == true then
+                love.graphics.push()
+                love.graphics.translate(-self.torso_width,self.length*0.4)
+                -- bag
+                setColor(self.suitcase_color)
+                love.graphics.rectangle("fill",-self.width*3,self.length*1.1+10,self.width*6,self.length*0.5 - 5)
+                setColor(darker_shade(self.suitcase_color,75))
+                love.graphics.setLineWidth(1)
+                love.graphics.rectangle("line",-self.width*3,self.length*1.1+10,self.width*6,self.length*0.5 - 5)
+                -- handle
+                setColor({0,0,0})
+                love.graphics.rectangle("fill",-self.width*1.5,self.length*1.1,self.width*3,5)
+                love.graphics.rectangle("fill",-self.width*1.5,self.length*1.1 + 5,5,self.length*0.5)
+                love.graphics.rectangle("fill",self.width*1.5 -5,self.length*1.1 + 5,5,self.length*0.5)
+                love.graphics.pop()
+            end
+
         else
             love.graphics.rectangle("fill", self.torso_width/2 + 2,0,self.width,self.length)
             love.graphics.rectangle("fill", self.torso_width/2 - self.width/2,0,self.width,20)
             self:drawHand(direction,animationState,holding_ticket,holding_suitcase)
+            if self.suitcase_type == "backpack" then
+                setColor(self.suitcase_color)
+                love.graphics.rectangle("fill", self.torso_width/2 - 2,-2,6,self.length*0.6)
+            end
+
+            if self.suitcase_type == "rollerboard" and holding_suitcase == true then
+                love.graphics.push()
+                love.graphics.translate(self.torso_width,-15)
+                setColor(self.suitcase_color)
+                love.graphics.rectangle("fill",-self.width,self.length*1.1,self.width*2,8)
+                setColor({0,0,0})
+                love.graphics.rectangle("fill",-2,self.length*1.1 + 8,4,15)
+                setColor(self.suitcase_color)
+                love.graphics.rectangle("fill",-self.width*0.8,self.length*1.1 + 23,self.width*1.6,self.length*0.8)
+                setColor(darker_shade(self.suitcase_color,75))
+                love.graphics.setLineWidth(1)
+                love.graphics.rectangle("line",-self.width*0.8,self.length*1.1 + 23,self.width*1.6,self.length*0.8)
+                setColor({0,0,0})
+                -- Rollerboard wheel
+                love.graphics.circle("fill",self.width*0.8,self.length*1.1 + 23 + self.length*0.8,8) 
+                love.graphics.pop()
+            end
+
+            if self.suitcase_type == "duffelbag" and holding_suitcase == true then
+                love.graphics.push()
+                love.graphics.translate(self.torso_width,self.length*0.4)
+                -- bag
+                setColor(self.suitcase_color)
+                love.graphics.rectangle("fill",-self.width*3,self.length*1.1+10,self.width*6,self.length*0.5 - 5)
+                setColor(darker_shade(self.suitcase_color,75))
+                love.graphics.setLineWidth(1)
+                love.graphics.rectangle("line",-self.width*3,self.length*1.1+10,self.width*6,self.length*0.5 - 5)
+                -- handle
+                setColor({0,0,0})
+                love.graphics.rectangle("fill",-self.width*1.5,self.length*1.1,self.width*3,5)
+                love.graphics.rectangle("fill",-self.width*1.5,self.length*1.1 + 5,5,self.length*0.5)
+                love.graphics.rectangle("fill",self.width*1.5 -5,self.length*1.1 + 5,5,self.length*0.5)
+                love.graphics.pop()
+            end
         end
 
         -- Backpack straps
-        if self.suitcase_type == "backpack" then
-            setColor(self.suitcase_color)
-            love.graphics.rectangle("fill",-self.torso_width/2 - 2,-2,6,self.length*0.6)
-            love.graphics.rectangle("fill", self.torso_width/2 - 2,-2,6,self.length*0.6)
-        end
+        -- if self.suitcase_type == "backpack" and self.arm_side == "RightArm" then
+        --     setColor(self.suitcase_color)
+        --     love.graphics.rectangle("fill",-self.torso_width/2 - 2,-2,6,self.length*0.6)
+        --     love.graphics.rectangle("fill", self.torso_width/2 - 2,-2,6,self.length*0.6)
+        -- end
+
+
+
+        -- elseif self.suitcase_type == "duffelbag" then
+
+        -- end
         return
 
 
