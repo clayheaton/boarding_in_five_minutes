@@ -29,6 +29,13 @@ function Arm:draw(direction,animationState,holding_ticket,holding_suitcase,draw_
             love.graphics.rectangle("fill", self.torso_width/2 - self.width/2,0,self.width,20)
             self:drawHand(direction,animationState,holding_ticket,holding_suitcase)
         end
+
+        -- Backpack straps
+        if self.suitcase_type == "backpack" then
+            setColor(self.suitcase_color)
+            love.graphics.rectangle("fill",-self.torso_width/2 - 2,-2,6,self.length*0.6)
+            love.graphics.rectangle("fill", self.torso_width/2 - 2,-2,6,self.length*0.6)
+        end
         return
 
 

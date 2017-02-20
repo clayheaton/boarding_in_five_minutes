@@ -47,7 +47,7 @@ function Leg:drawShoe(direction,is_sitting)
 
     if is_sitting then
         if self.leg_side == "LeftLeg" then
-            love.graphics.rectangle("fill",-6 - self.width/2,self.length-10,self.width/2+4,11)
+            love.graphics.rectangle("fill",-self.width/2 - 7,self.length-10,self.width/2+4,11)
         elseif self.leg_side == "RightLeg" then
             love.graphics.rectangle("fill",2,self.length-10,self.width/2+4,11)
         end
