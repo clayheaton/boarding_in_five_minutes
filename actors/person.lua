@@ -13,10 +13,10 @@ function Person:new()
 
     self.speed_variation = math.random(40,130)/100
 
-    self.right_handed   = true
+    self.right_handed = true
 
-    local handedCheck   = math.random(1,100)
-    if handedCheck > 70 then
+    local handedCheck = math.random(1,100)
+    if handedCheck > 80 then
         self.right_handed = false
     end
 
@@ -30,22 +30,20 @@ function Person:new()
 
     --self.suitcase_type = "backpack"
 
-    self.head           = Head()
-    self.torso_width    = math.random(self.head.width*0.6,self.head.width*1.5)
-    self.legs           = Legs(self.torso_width, self.speed_variation)
-    self.torso_length   = self.legs.length * 1.2
+    -- TODO: Abstract suitcase out from Arms so that the Person can walk away from their suitcase?
 
-    self.color_torso    = random_reasonable_color()
-    self.torso          = Torso(self.torso_width,self.torso_length,self.color_torso)
-
-    self.color_skin     = self.head.color
-
-    self.animationState = "standing"
-    self.direction      = "left"
-
+    self.head             = Head()
+    self.torso_width      = math.random(self.head.width*0.6,self.head.width*1.5)
+    self.legs             = Legs(self.torso_width, self.speed_variation)
+    self.torso_length     = self.legs.length * 1.2
+    self.color_torso      = random_reasonable_color()
+    self.torso            = Torso(self.torso_width,self.torso_length,self.color_torso)
+    self.color_skin       = self.head.color
+    self.animationState   = "standing"
+    self.direction        = "left"
     self.holding_ticket   = true
     self.holding_suitcase = true
-    self.suitcase_color   = random_suitcase_color()
+    self.suitcase_color   = random_reasonable_color()
     self.ticket_color     = ticket_color
     self.arms             = Arms(self)
 
@@ -61,8 +59,7 @@ end
 
 function Person:draw()
     -- Position is middle of feet
-    -- TODO: If the person is "sitting" then we need to draw both arms first
-
+    -- If the person is "sitting" then we draw both arms first
 
     -- Need to draw one arm before anything else and one arm after everything else
     -- push the matrix to the center point of the top of the torso.

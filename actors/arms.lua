@@ -1,7 +1,104 @@
 --! file: arms.lua
 require "colors"
 
+Arms = Object:extend()
 Arm = Object:extend()
+
+function Arms:new(person)
+    self.p = person
+
+    self.length = self.p.torso_length * 0.9
+    self.width  = math.random(10,20)
+
+    self.armL = Arm(self.p,self.width,self.length,"LeftArm")
+    self.armR = Arm(self.p,self.width,self.length,"RightArm")
+
+end
+
+function Arms:update(dt)
+end
+
+function Arms:drawFirst(direction,animationState,holding_ticket,holding_suitcase)
+    -- animationState might be 'sitting'
+    if animationState == "sitting" then
+        local draw_straps = false
+        if holding_suitcase == true and self.p.suitcase_type == "backpack" then
+            draw_straps = true
+        end
+
+        -- Draw arms at side
+        self:drawRightArm(direction,animationState,holding_ticket,holding_suitcase,draw_straps)
+        self:drawLeftArm(direction,animationState,holding_ticket,holding_suitcase,draw_straps)
+        return
+    end
+
+    if direction == "right" then
+        self:drawLeftArm(direction,animationState,holding_ticket,holding_suitcase)
+    else
+        self:drawRightArm(direction,animationState,holding_ticket,holding_suitcase)
+    end
+end
+
+function Arms:drawLast(direction,animationState,holding_ticket,holding_suitcase)
+    -- animationState might be 'sitting'
+    if animationState == "sitting" then
+        return
+    end
+
+    local draw_straps = false
+    if holding_suitcase == true and self.p.suitcase_type == "backpack" then
+        draw_straps = true
+    end
+
+    if direction == "right" then
+        self:drawRightArm(direction,animationState,holding_ticket,holding_suitcase,draw_straps)
+    else
+        self:drawLeftArm(direction,animationState,holding_ticket,holding_suitcase,draw_straps)
+    end
+end
+
+function Arms:drawRightArm(direction,animationState,holding_ticket,holding_suitcase,draw_straps)
+
+    local draw_ticket   = false
+    local draw_suitcase = false
+
+
+    if self.p.right_handed == true then
+        if holding_suitcase == true then
+            draw_suitcase = true
+        end
+    else
+        if holding_ticket == true then
+            draw_ticket = true
+        end
+    end
+
+    self.armR:draw(direction,animationState,draw_ticket,draw_suitcase,draw_straps)
+end
+
+function Arms:drawLeftArm(direction,animationState,holding_ticket,holding_suitcase,draw_straps)
+
+    local draw_ticket   = false
+    local draw_suitcase = false
+
+    if self.p.right_handed == false then
+        if holding_suitcase == true then
+            draw_suitcase = true
+        end
+    else
+        if holding_ticket == true then
+            draw_ticket = true
+        end
+    end
+
+    self.armL:draw(direction,animationState,draw_ticket,draw_suitcase,draw_straps)
+end
+
+
+
+----------------------- ARM -------------------------------
+
+
 
 function Arm:new(person,width,length,arm_side)
     self.p              = person
@@ -533,97 +630,4 @@ function Arm:drawHand(direction,animationState,holding_ticket,holding_suitcase)
             end
         end
     end
-end
-
-
-Arms = Object:extend()
-
-function Arms:new(person)
-    self.p = person
-
-    self.length = self.p.torso_length * 0.9
-    self.width  = math.random(10,20)
-
-    self.armL = Arm(self.p,self.width,self.length,"LeftArm")
-    self.armR = Arm(self.p,self.width,self.length,"RightArm")
-
-end
-
-function Arms:update(dt)
-end
-
-function Arms:drawFirst(direction,animationState,holding_ticket,holding_suitcase)
-    -- animationState might be 'sitting'
-    if animationState == "sitting" then
-        local draw_straps = false
-        if holding_suitcase == true and self.p.suitcase_type == "backpack" then
-            draw_straps = true
-        end
-
-        -- Draw arms at side
-        self:drawRightArm(direction,animationState,holding_ticket,holding_suitcase,draw_straps)
-        self:drawLeftArm(direction,animationState,holding_ticket,holding_suitcase,draw_straps)
-        return
-    end
-
-    if direction == "right" then
-        self:drawLeftArm(direction,animationState,holding_ticket,holding_suitcase)
-    else
-        self:drawRightArm(direction,animationState,holding_ticket,holding_suitcase)
-    end
-end
-
-function Arms:drawLast(direction,animationState,holding_ticket,holding_suitcase)
-    -- animationState might be 'sitting'
-    if animationState == "sitting" then
-        return
-    end
-
-    local draw_straps = false
-    if holding_suitcase == true and self.p.suitcase_type == "backpack" then
-        draw_straps = true
-    end
-
-    if direction == "right" then
-        self:drawRightArm(direction,animationState,holding_ticket,holding_suitcase,draw_straps)
-    else
-        self:drawLeftArm(direction,animationState,holding_ticket,holding_suitcase,draw_straps)
-    end
-end
-
-function Arms:drawRightArm(direction,animationState,holding_ticket,holding_suitcase,draw_straps)
-
-    local draw_ticket   = false
-    local draw_suitcase = false
-
-
-    if self.p.right_handed == true then
-        if holding_suitcase == true then
-            draw_suitcase = true
-        end
-    else
-        if holding_ticket == true then
-            draw_ticket = true
-        end
-    end
-
-    self.armR:draw(direction,animationState,draw_ticket,draw_suitcase,draw_straps)
-end
-
-function Arms:drawLeftArm(direction,animationState,holding_ticket,holding_suitcase,draw_straps)
-
-    local draw_ticket   = false
-    local draw_suitcase = false
-
-    if self.p.right_handed == false then
-        if holding_suitcase == true then
-            draw_suitcase = true
-        end
-    else
-        if holding_ticket == true then
-            draw_ticket = true
-        end
-    end
-
-    self.armL:draw(direction,animationState,draw_ticket,draw_suitcase,draw_straps)
 end
