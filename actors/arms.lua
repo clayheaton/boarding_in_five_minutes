@@ -3,16 +3,16 @@ require "colors"
 
 Arm = Object:extend()
 
-function Arm:new(person,width,length,torso_color,skin_color,arm_side,torso_width,suitcase_color,suitcase_type)
-    self.person         = person
+function Arm:new(person,width,length,arm_side)
+    self.p              = person
     self.width          = width
     self.length         = length
-    self.color          = torso_color
-    self.hand_color     = skin_color
+    self.color          = self.p.color_torso
+    self.hand_color     = self.p.color_skin
     self.arm_side       = arm_side
-    self.torso_width    = torso_width
-    self.suitcase_color = suitcase_color
-    self.suitcase_type  = suitcase_type
+    self.torso_width    = self.p.torso_width
+    self.suitcase_color = self.p.suitcase_color
+    self.suitcase_type  = self.p.suitcase_type
 end
 
 function Arm:draw(direction,animationState,holding_ticket,holding_suitcase,draw_straps)
@@ -27,7 +27,7 @@ function Arm:draw(direction,animationState,holding_ticket,holding_suitcase,draw_
             self:drawHand(direction,animationState,holding_ticket,holding_suitcase)
 
             -- Backpack strap for RightArm
-            if self.suitcase_type == "backpack" and self.person.holding_suitcase == true then
+            if self.suitcase_type == "backpack" and self.p.holding_suitcase == true then
                 setColor(self.suitcase_color)
                 love.graphics.rectangle("fill",-self.torso_width/2 - 2,-2,6,self.length*0.6)
             end
@@ -73,7 +73,7 @@ function Arm:draw(direction,animationState,holding_ticket,holding_suitcase,draw_
             self:drawHand(direction,animationState,holding_ticket,holding_suitcase)
 
             -- Backpack strap for LeftArm
-            if self.suitcase_type == "backpack" and self.person.holding_suitcase == true then
+            if self.suitcase_type == "backpack" and self.p.holding_suitcase == true then
                 setColor(self.suitcase_color)
                 love.graphics.rectangle("fill", self.torso_width/2 - 2,-2,6,self.length*0.6)
             end
@@ -333,10 +333,10 @@ function Arm:drawHand(direction,animationState,holding_ticket,holding_suitcase)
                 -- DRAW THE TICKET
                 local xa = -self.torso_width/2 - self.width - 20
                 local xb = 40
-                setColor(self.person.ticket_color)
+                setColor(self.p.ticket_color)
                 love.graphics.rectangle("fill",xa, self.length+3,xb,18)
                 love.graphics.setLineWidth(0.5)
-                setColor(darker_shade(self.person.ticket_color,50))
+                setColor(darker_shade(self.p.ticket_color,50))
                 love.graphics.rectangle("line",xa, self.length+3,xb,18)
             end
             setColor(self.hand_color)
@@ -346,10 +346,10 @@ function Arm:drawHand(direction,animationState,holding_ticket,holding_suitcase)
                 -- DRAW THE TICKET
                 local xa = self.torso_width/2 + self.width - 20
                 local xb = 40
-                setColor(self.person.ticket_color)
+                setColor(self.p.ticket_color)
                 love.graphics.rectangle("fill",xa, self.length+3,xb,18)
                 love.graphics.setLineWidth(0.5)
-                setColor(darker_shade(self.person.ticket_color,50))
+                setColor(darker_shade(self.p.ticket_color,50))
                 love.graphics.rectangle("line",xa, self.length+3,xb,18)
             end
             setColor(self.hand_color)
@@ -367,10 +367,10 @@ function Arm:drawHand(direction,animationState,holding_ticket,holding_suitcase)
                     xa = -30
                     xb = 40
                 end
-                setColor(self.person.ticket_color)
+                setColor(self.p.ticket_color)
                 love.graphics.rectangle("fill",xa, self.length+3,xb,18)
                 love.graphics.setLineWidth(0.5)
-                setColor(darker_shade(self.person.ticket_color,50))
+                setColor(darker_shade(self.p.ticket_color,50))
                 love.graphics.rectangle("line",xa, self.length+3,xb,18)
 
                 -- Arm should be angled out to hold a ticket
@@ -455,10 +455,10 @@ function Arm:drawHand(direction,animationState,holding_ticket,holding_suitcase)
                     xa = -30
                     xb = 40
                 end
-                setColor(self.person.ticket_color)
+                setColor(self.p.ticket_color)
                 love.graphics.rectangle("fill",xa, self.length+3,xb,18)
                 love.graphics.setLineWidth(0.5)
-                setColor(darker_shade(self.person.ticket_color,50))
+                setColor(darker_shade(self.p.ticket_color,50))
                 love.graphics.rectangle("line",xa, self.length+3,xb,18)
 
                 setColor(self.hand_color)
@@ -538,18 +538,14 @@ end
 
 Arms = Object:extend()
 
-function Arms:new(person,torso_color,right_handed,torso_width,torso_length)
-    self.person = person
+function Arms:new(person)
+    self.p = person
 
-    self.length = torso_length * 0.9
+    self.length = self.p.torso_length * 0.9
     self.width  = math.random(10,20)
 
-    self.right_handed = right_handed
-    self.torso_width  = torso_width
-    self.torso_length = torso_length
-
-    self.armL = Arm(self.person,self.width,self.length,torso_color,self.person.color_skin,"LeftArm",torso_width,self.person.suitcase_color,self.person.suitcase_type)
-    self.armR = Arm(self.person,self.width,self.length,torso_color,self.person.color_skin,"RightArm",torso_width,self.person.suitcase_color,self.person.suitcase_type)
+    self.armL = Arm(self.p,self.width,self.length,"LeftArm")
+    self.armR = Arm(self.p,self.width,self.length,"RightArm")
 
 end
 
@@ -560,7 +556,7 @@ function Arms:drawFirst(direction,animationState,holding_ticket,holding_suitcase
     -- animationState might be 'sitting'
     if animationState == "sitting" then
         local draw_straps = false
-        if holding_suitcase == true and self.person.suitcase_type == "backpack" then
+        if holding_suitcase == true and self.p.suitcase_type == "backpack" then
             draw_straps = true
         end
 
@@ -584,7 +580,7 @@ function Arms:drawLast(direction,animationState,holding_ticket,holding_suitcase)
     end
 
     local draw_straps = false
-    if holding_suitcase == true and self.person.suitcase_type == "backpack" then
+    if holding_suitcase == true and self.p.suitcase_type == "backpack" then
         draw_straps = true
     end
 
@@ -601,7 +597,7 @@ function Arms:drawRightArm(direction,animationState,holding_ticket,holding_suitc
     local draw_suitcase = false
 
 
-    if self.right_handed == true then
+    if self.p.right_handed == true then
         if holding_suitcase == true then
             draw_suitcase = true
         end
@@ -619,7 +615,7 @@ function Arms:drawLeftArm(direction,animationState,holding_ticket,holding_suitca
     local draw_ticket   = false
     local draw_suitcase = false
 
-    if self.right_handed == false then
+    if self.p.right_handed == false then
         if holding_suitcase == true then
             draw_suitcase = true
         end

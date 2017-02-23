@@ -47,7 +47,7 @@ function Person:new()
     self.holding_suitcase = true
     self.suitcase_color   = random_suitcase_color()
     self.ticket_color     = ticket_color
-    self.arms             = Arms(self,self.color_torso,self.right_handed,self.torso_width,self.torso_length)
+    self.arms             = Arms(self)
 
 end
 
