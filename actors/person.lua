@@ -38,13 +38,16 @@ function Person:new()
     self.color_torso    = random_reasonable_color()
     self.torso          = Torso(self.torso_width,self.torso_length,self.color_torso)
 
+    self.color_skin     = self.head.color
+
     self.animationState = "standing"
     self.direction      = "left"
 
     self.holding_ticket   = true
     self.holding_suitcase = true
     self.suitcase_color   = random_suitcase_color()
-    self.arms             = Arms(self.color_torso,self.head.color,self.suitcase_color,self.right_handed,self.torso_width,self.torso_length,self.suitcase_type)
+    self.ticket_color     = ticket_color
+    self.arms             = Arms(self,self.color_torso,self.right_handed,self.torso_width,self.torso_length)
 
 end
 
