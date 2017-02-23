@@ -21,6 +21,9 @@ function love.load()
     require "actors.person"
     require "oscillator"
 
+    -- For the map
+    require "map.playfield"
+
 
     -- Tests
     if test_characterGrid then

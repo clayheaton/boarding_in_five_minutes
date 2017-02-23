@@ -18,6 +18,9 @@ end
 function Arms:update(dt)
 end
 
+-- This is more complicated than it seems it should be due to the fact that the arm
+-- that is not facing the player may be holding an object that is partially occluded by the torso.
+
 function Arms:drawFirst(direction,animationState,holding_ticket,holding_suitcase)
     -- animationState might be 'sitting'
     if animationState == "sitting" then
