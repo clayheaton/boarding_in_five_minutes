@@ -2,6 +2,54 @@
 require "colors"
 require "oscillator"
 
+Legs = Object:extend()
+
+function Legs:new(torso_width, speed_variation)
+    self.length     = math.random(40,80)
+    self.width      = torso_width * (math.random(50,80)/100)
+    self.color      = random_reasonable_color()
+
+    self.shoe_color = {math.random(0,50),math.random(0,50),math.random(0,50)}
+
+    self.leg1       = Leg(self.width,self.length,self.color,self.shoe_color, "LeftLeg")
+    self.leg2       = Leg(self.width,self.length,self.color,self.shoe_color, "RightLeg")
+
+    self.speed_variation = speed_variation
+    self.oscillator      = Oscillator(math.random(0,628)/100,10*self.speed_variation)
+end
+
+function Legs:update(dt)
+    self.oscillator:update(dt)
+end
+
+function Legs:draw(direction,animation_status)
+    -- animation_status: walking, standing, seated
+
+    if animation_status == "walking" then
+        local oscValue = math.pi/16 * self.oscillator.value
+        if direction == "left" then
+            self.leg1:draw(direction,oscValue,false)
+            self.leg2:draw(direction,-oscValue,false)
+        elseif direction == "right" then
+            self.leg1:draw(direction,oscValue,false)
+            self.leg2:draw(direction,-oscValue,false)
+        end
+    elseif animation_status == "standing" then
+        -- If standing, we only need to draw one leg
+        if direction == "left" then
+            self.leg1:draw(direction,0,false)
+        elseif direction == "right" then
+            self.leg1:draw(direction,0,false)
+        end
+    elseif animation_status == "sitting" then
+        -- Use a single leg to draw sitting
+        self.leg1:draw(direction,0,true)
+        self.leg2:draw(direction,0,true)
+    end
+end
+
+
+
 Leg = Object:extend()
 
 function Leg:new(width,length,leg_color,shoe_color,leg_side)
@@ -72,59 +120,3 @@ function Leg:drawShoe(direction,is_sitting)
     end
 end
 
-
-Legs = Object:extend()
-
-function Legs:new(torso_width, speed_variation)
-    self.length     = math.random(40,80)
-    self.width      = torso_width * (math.random(50,80)/100)
-    self.color      = random_reasonable_color()
-
-    self.shoe_color = {math.random(0,50),math.random(0,50),math.random(0,50)}
-
-    self.leg1       = Leg(self.width,self.length,self.color,self.shoe_color, "LeftLeg")
-    self.leg2       = Leg(self.width,self.length,self.color,self.shoe_color, "RightLeg")
-
-    self.speed_variation = speed_variation
-    self.oscillator      = Oscillator(math.random(0,628)/100,10*self.speed_variation)
-end
-
-function Legs:update(dt)
-    self.oscillator:update(dt)
-end
-
-function Legs:draw(direction,animation_status)
-    -- animation_status: walking, standing, seated
-
-    if animation_status == "walking" then
-        local oscValue = math.pi/16 * self.oscillator.value
-        if direction == "left" then
-            self.leg1:draw(direction,oscValue,false)
-            self.leg2:draw(direction,-oscValue,false)
-        elseif direction == "right" then
-            self.leg1:draw(direction,oscValue,false)
-            self.leg2:draw(direction,-oscValue,false)
-        end
-    elseif animation_status == "standing" then
-        -- If standing, we only need to draw one leg
-        if direction == "left" then
-            self.leg1:draw(direction,0,false)
-        elseif direction == "right" then
-            self.leg1:draw(direction,0,false)
-        end
-    elseif animation_status == "sitting" then
-        -- Use a single leg to draw sitting
-        self.leg1:draw(direction,0,true)
-        self.leg2:draw(direction,0,true)
-    end
-end
-
--- function Legs:drawShoes(direction)
---     if direction == "left" then
-
---     else if direction == "right" then
-
---     else
-
---     end
--- end
