@@ -1,5 +1,8 @@
 --! file: colors.lua
 
+color_white = {255,255,255}
+color_black = {0,0,0}
+
 eye_colors_lookup  = {"green","blue","brown"}
 eye_colors         = {}
 eye_colors.green   = {25,163,55}
