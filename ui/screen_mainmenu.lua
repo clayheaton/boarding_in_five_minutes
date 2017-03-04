@@ -10,6 +10,8 @@ MainMenu = Object:extend()
 function MainMenu:new()
 	self.buttons = {}
 
+	self.main_title   = "Boarding in Five Minutes"
+
 	local winW = settings.winW
 	local winH = settings.winH
 
@@ -34,6 +36,11 @@ end
 
 function MainMenu:draw()
 	love.graphics.setBackgroundColor( 255,255,255 )
+
+	setColor(color_black)
+	love.graphics.setFont(main_title_font);
+	love.graphics.printf( self.main_title, settings.winW*0.5 - 400, 200, 800, "center" )
+
 	for i=1,#self.buttons do
 		self.buttons[i]:draw()
 	end

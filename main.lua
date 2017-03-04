@@ -24,7 +24,7 @@ function love.load()
     math.randomseed(os.time())
 
     -- Create Font objects
-    main_title_font = love.graphics.newFont("SFNSText.ttf", 48)
+    main_title_font = love.graphics.newFont("Skia.ttf", 48)
     sub_title_font  = love.graphics.newFont("SFNSText.ttf", 24)
     loading_font    = love.graphics.newFont("SFNSText.ttf", 16)
     -- Establish the initial screen that will appear
