@@ -12,6 +12,7 @@ function love.load()
     require "ui.screen_mainmenu"
     require "ui.screen_loadingscreen"
     require "scenes.scene_test"
+    require "scenes.scene_terminal"
 
     game     = Game()
     settings = GameSettings()
@@ -27,11 +28,17 @@ function love.load()
     main_title_font = love.graphics.newFont("Skia.ttf", 48)
     sub_title_font  = love.graphics.newFont("SFNSText.ttf", 24)
     loading_font    = love.graphics.newFont("SFNSText.ttf", 16)
+
     -- Establish the initial screen that will appear
     active_scene = MainMenu() 
 end
 
 function love.update(dt)
+    if love.keyboard.isDown('w', 'a', 's', 'd') then
+        -- Tell the active scene that one of these buttons is down
+        active_scene:checkKeyDown()
+    end
+
     active_scene:update(dt)
 end
 
@@ -45,7 +52,7 @@ function startNewGame()
     active_scene = LoadingScreen()
     game:init(active_scene)
     
-    active_scene = SceneTest()
+    active_scene = SceneTerminal()
 end
 
 

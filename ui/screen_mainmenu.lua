@@ -50,6 +50,10 @@ function MainMenu:keypressed(key,scancode,isreapeat)
 
 end
 
+function MainMenu:checkKeyDown()
+    print("Caught checkKeyDown() in MainMenu")
+end 
+
 function MainMenu:mousepressed(x, y, button, istouch)
 	if button == 1 then
 		for i=1,#self.buttons do

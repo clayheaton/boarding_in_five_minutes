@@ -29,6 +29,10 @@ function SceneTest:update(dt)
     end  
 end
 
+function SceneTest:checkKeyDown()
+
+end 
+
 function SceneTest:keypressed(key,scancode,isreapeat)
     if key == "space" then
         for i=1,#self.people do

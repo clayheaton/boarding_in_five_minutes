@@ -34,6 +34,10 @@ function LoadingScreen:displayText(text_to_display)
 	self.loading_text = text_to_display
 end
 
+function LoadingScreen:checkKeyDown()
+    print("Caught checkKeyDown() in LoadingScreen")
+end 
+
 function LoadingScreen:keypressed(key,scancode,isreapeat)
 
 end
