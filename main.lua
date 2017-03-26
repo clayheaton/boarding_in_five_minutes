@@ -12,7 +12,7 @@ function love.load()
     require "ui.screen_mainmenu"
     require "ui.screen_loadingscreen"
     require "scenes.scene_test"
-    require "scenes.scene_terminal"
+    require "scenes.PlayScene"
 
     game     = Game()
     settings = GameSettings()
@@ -52,7 +52,7 @@ function startNewGame()
     active_scene = LoadingScreen()
     game:init(active_scene)
     
-    active_scene = SceneTerminal()
+    active_scene = PlayScene()
 end
 
 

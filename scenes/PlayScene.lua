@@ -1,11 +1,11 @@
---! file: scene_terminal.lua
+--! file: PlayScene.lua
 require("colors")
 require("map.terminal")
 
 
-SceneTerminal = Object:extend()
+PlayScene = Object:extend()
 
-function SceneTerminal:new()
+function PlayScene:new()
     self.terminal       = Terminal()
     self.move_map_up    = false
     self.move_map_down  = false
@@ -14,17 +14,17 @@ function SceneTerminal:new()
 end
 
 
-function SceneTerminal:update(dt)
+function PlayScene:update(dt)
 
 end
 
-function SceneTerminal:keypressed(key,scancode,isreapeat)
+function PlayScene:keypressed(key,scancode,isreapeat)
     if key == "w" then
 
     end
 end
 
-function SceneTerminal:checkKeyDown()
+function PlayScene:checkKeyDown()
     if love.keyboard.isDown("w") then
         -- print("w is being held down")
         self.terminal.offsetY = self.terminal.offsetY - 4
@@ -41,14 +41,14 @@ function SceneTerminal:checkKeyDown()
     end
 end 
 
-function SceneTerminal:mousepressed(x, y, button, istouch)
-    print("SceneTerminal processing mousepressed")
-    print(x)
-    print(y)
-    print(istouch)
+function PlayScene:mousepressed(x, y, button, istouch)
+    print("PlayScene mousepressed: " .. tostring(x) .. ", " .. tostring(y))
+
+    -- Pass through clicks to the Terminal if they do not hit on UI managed here.
+    self.terminal:mousepressed(x,y,button,istouch)
 end
 
-function SceneTerminal:draw()
+function PlayScene:draw()
     love.graphics.setBackgroundColor( 19, 38, 55 )
     self.terminal:draw()
 end
