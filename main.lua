@@ -34,7 +34,7 @@ function love.load()
 end
 
 function love.update(dt)
-    if love.keyboard.isDown('w', 'a', 's', 'd') then
+    if love.keyboard.isDown('w', 'a', 's', 'd', 'q', 'e') then
         -- Tell the active scene that one of these buttons is down
         active_scene:checkKeyDown()
     end
