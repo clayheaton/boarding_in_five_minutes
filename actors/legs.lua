@@ -18,6 +18,11 @@ function Legs:new(torso_width, speed_variation)
     self.oscillator      = Oscillator(math.random(0,628)/100,10*self.speed_variation)
 end
 
+function Legs:normalizeSpeedVariation(speed)
+    self.speed_variation = speed
+    self.oscillator = Oscillator(math.random(0,628)/100,10*self.speed_variation)
+end
+
 function Legs:update(dt)
     self.oscillator:update(dt)
 end

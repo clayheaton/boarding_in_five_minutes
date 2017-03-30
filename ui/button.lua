@@ -26,6 +26,8 @@ end
 
 function Button:draw()
 	rectFill(self.x,self.y,self.w,self.h,self.color)
+	setColor({255,255,255})
+	love.graphics.printf( self.label, self.x, self.y + (self.h / 3), self.w, "center" )
 end
 
 function Button:catchMousePressedEvent(x,y)

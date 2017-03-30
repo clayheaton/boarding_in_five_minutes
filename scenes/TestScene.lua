@@ -1,13 +1,13 @@
 --! file: scene_test.lua
 require "actors.person"
 
-SceneTest = Object:extend()
+TestScene = Object:extend()
 
-function SceneTest:new()
+function TestScene:new()
     self.people = self:regenPeople()
 end
 
-function SceneTest:regenPeople()
+function TestScene:regenPeople()
     local newpeople = {}
     for i=1,3 do
         for j=1,3 do
@@ -22,18 +22,18 @@ function SceneTest:regenPeople()
     return newpeople
 end
 
-function SceneTest:update(dt)
+function TestScene:update(dt)
     for i=1,#self.people do
         local person = self.people[i]
         person:update(dt)
     end  
 end
 
-function SceneTest:checkKeyDown()
+function TestScene:checkKeyDown()
 
 end 
 
-function SceneTest:keypressed(key,scancode,isreapeat)
+function TestScene:keypressed(key,scancode,isreapeat)
     if key == "space" then
         for i=1,#self.people do
             local person = self.people[i]
@@ -49,13 +49,13 @@ function SceneTest:keypressed(key,scancode,isreapeat)
     end
 end
 
-function SceneTest:mousepressed(x, y, button, istouch)
+function TestScene:mousepressed(x, y, button, istouch)
     if button == 1 then
         self.people = self:regenPeople()
     end
 end
 
-function SceneTest:draw()
+function TestScene:draw()
 	love.graphics.setBackgroundColor( 255,255,255 )
     for i=1,#self.people do
         local person = self.people[i]

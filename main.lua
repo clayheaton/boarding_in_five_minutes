@@ -11,7 +11,7 @@ function love.load()
     require "gamesettings"
     require "ui.screen_mainmenu"
     require "ui.screen_loadingscreen"
-    require "scenes.scene_test"
+    require "scenes.TestScene"
     require "scenes.PlayScene"
 
     game     = Game()
@@ -25,15 +25,16 @@ function love.load()
     math.randomseed(os.time())
 
     -- Create Font objects
-    main_title_font = love.graphics.newFont("Skia.ttf", 48)
-    sub_title_font  = love.graphics.newFont("SFNSText.ttf", 24)
-    loading_font    = love.graphics.newFont("SFNSText.ttf", 16)
+    main_title_font = love.graphics.newFont("fonts/Skia.ttf", 48)
+    sub_title_font  = love.graphics.newFont("fonts/SFNSText.ttf", 24)
+    loading_font    = love.graphics.newFont("fonts/SFNSText.ttf", 16)
 
     -- Establish the initial screen that will appear
     active_scene = MainMenu() 
 end
 
 function love.update(dt)
+    -- TODO: Figure out how to send through any key
     if love.keyboard.isDown('w', 'a', 's', 'd', 'q', 'e') then
         -- Tell the active scene that one of these buttons is down
         active_scene:checkKeyDown()
@@ -48,11 +49,24 @@ function love.draw()
 end
 
 -- Starting a new game
+-- Called when clicking on the Start button
 function startNewGame()
     active_scene = LoadingScreen()
     game:init(active_scene)
     
     active_scene = PlayScene()
+end
+
+-- Quit the game
+-- Perform any necessary prompting or cleanup here.
+-- Called when clicking on the Quit button
+function quitGame()
+    love.event.quit()
+end
+
+-- Called to change the difficulty of the game
+function changeDifficulty()
+    print("changeDifficulty() in main.lua")
 end
 
 

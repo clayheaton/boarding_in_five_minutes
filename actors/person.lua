@@ -11,9 +11,14 @@ function Person:new()
     self.x = 400
     self.y = 400
 
-    self.speed_variation = math.random(40,130)/100
+    -- For movement
+    self.targetX           = 400
+    self.targetY           = 400
+    self.has_target        = false
 
-    self.right_handed = true
+    self.movement_rate     = 150
+    self.speed_variation   = math.random(40,130)/100
+    self.right_handed      = true
 
     local handedCheck = math.random(1,100)
     if handedCheck > 80 then
@@ -39,18 +44,25 @@ function Person:new()
     self.color_torso      = random_reasonable_color()
     self.torso            = Torso(self.torso_width,self.torso_length,self.color_torso)
     self.color_skin       = self.head.color
-    self.animationState   = "standing"
+    self.animationState   = "standing" -- standing, sitting, walking
     self.direction        = "left"
     self.holding_ticket   = true
     self.holding_suitcase = true
     self.suitcase_color   = random_reasonable_color()
     self.ticket_color     = ticket_color
+
+    -- A little dangerous to do this too much unless everything else is initialized first
     self.arms             = Arms(self)
 
 end
 
 function Person:setAnimationState(animationState)
     self.animationState = animationState
+end
+
+function Person:normalizeSpeedVariation()
+    self.speed_variation = 0.5
+    self.legs:normalizeSpeedVariation(self.speed_variation)
 end
 
 function Person:setDirection(dir)
@@ -112,6 +124,16 @@ function Person:draw()
 
 end
 
+
+function Person:move(dt)
+    if self.has_target then
+        if self.x < self.targetX - 5 then
+            self.x = self.x + (dt * self.movement_rate * self.speed_variation)
+        end
+    end
+end
+
 function Person:update(dt)
     self.legs:update(dt)
+    self:move(dt)
 end
